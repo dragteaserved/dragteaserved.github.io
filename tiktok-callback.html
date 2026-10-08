@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Signing in</title><link rel="stylesheet" href="style.css"></head>
+<body><main><h1>Signing in…</h1><p class="muted">Finishing your TikTok sign-in.</p></main>
+<script>
+// TikTok sends the sign-in back here; the publisher helper on this computer finishes it.
+location.replace("http://127.0.0.1:8767/callback" + location.search);
+</script></body></html>
