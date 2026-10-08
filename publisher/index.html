@@ -192,7 +192,11 @@ $("post").onclick = async () => {
     open_id: state.acct.open_id, video: $("video").value, title: $("title").value, privacy_level: $("privacy").value,
     disable_comment: !$("comment").checked, disable_duet: !$("duet").checked, disable_stitch: !$("stitch").checked,
     brand_content_toggle: $("branded").checked, brand_organic_toggle: $("ownBrand").checked})});
-  if (!r.data || !r.data.publish_id) { $("postMsg").className = "note warn"; $("postMsg").textContent = "TikTok didn't accept it: " + ((r.error && r.error.message) || JSON.stringify(r)); validate(); return; }
+  if (!r.data || !r.data.publish_id) { $("postMsg").className = "note warn"; const plain = {unaudited_client_can_only_post_to_private_accounts: "Until TikTok approves this app, it can only post to TikTok accounts set to Private.",
+      spam_risk_too_many_posts: "This account has reached TikTok's daily posting limit. Try again tomorrow.",
+      spam_risk_user_banned_from_posting: "TikTok isn't letting this account post right now.",
+      privacy_level_option_mismatch: "That 'who can view' choice isn't available for this account."};
+    $("postMsg").textContent = "TikTok didn't accept it: " + ((r.error && (plain[r.error.code] || r.error.message)) || JSON.stringify(r)); validate(); return; }
   $("postMsg").textContent = "Sent. TikTok is processing it: it can take a few minutes to appear on your profile.";
   for (let n = 0; n < 40; n++) {
     await new Promise(res => setTimeout(res, 5000));
